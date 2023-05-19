@@ -1,0 +1,217 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE mydatabase;
+ERROR 1007 (HY000): Can't create database 'mydatabase'; database exists
+mysql> use mydatabase
+Database changed
+mysql> show tables
+    -> l
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'l' at line 2
+mysql> show tables;
++----------------------+
+| Tables_in_mydatabase |
++----------------------+
+| person               |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> DROP mydatabase;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mydatabase' at line 1
+mysql> DROP person;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'person' at line 1
+mysql> DROP person;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'person' at line 1
+mysql> show tables;
++----------------------+
+| Tables_in_mydatabase |
++----------------------+
+| person               |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> delete person;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> drop TABLE person;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE person(
+    -> id INT NOT NULL AUTO_INCREMENT,
+    -> name VARCHAR(50) NOT NULL,
+    -> age INT NOT NULL,
+    -> email VARCAHR(50) NOT NULL,
+    -> PRIMARY KEY (id)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VARCAHR(50) NOT NULL,
+PRIMARY KEY (id)
+)' at line 5
+mysql> CREATE TABLE person(
+    -> id INT NOT NULL AUTO_INCREMENT,
+    -> name VARCHAR(50) NOT NULL,
+    -> age INT NOT NULL,
+    -> email VARCHAR(50) NOT NULL,
+    -> PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE address(
+    -> id INT NOT NULL AUTO_INCREMENT,
+    -> person_id INT NOT NULL,
+    -> stree VARCHAR(50) NOT NULL,
+    ->
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 6
+mysql> CREATE TABLE address(
+    -> id INT NOT NULL AUTO_INCREMENT,
+    -> person_id INT NOT NULL,
+    -> stree VARCHAR(50) NOT NULL,
+    ->
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 6
+mysql> CREATE TABLE address(
+    -> id INT NOT NULL AUTO_INCREMENT,
+    -> person_id INT NOT NULL,
+    -> street VARCHAR(50) NOT NULL,
+    -> city VARCHAR(50) NOT NULL,
+    -> country VARCHAR(50) NOT NULL,
+    -> PRIMARY KEY (id),
+    -> FOREIGN KEY (person_id) REFERENCES person(id)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables
+    -> ;
++----------------------+
+| Tables_in_mydatabase |
++----------------------+
+| address              |
+| person               |
++----------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from person
+    -> ;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO person (name, age, email) VALUES
+    -> ('Mark', 20, 'mark@mail.com'),
+    -> ('John', 25, 'john@mail.com'),
+    -> ('Bob', 45, 'jane@mail.com'),
+    -> ('Alice' 35, 'alice@mail.com'),
+    -> ('Rúin' 20, 'rúin@mail.com'),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '35, 'alice@mail.com'),
+('Rúin' 20, 'rúin@mail.com'),
+)' at line 5
+mysql> INSERT INTO person (name, age, email) VALUES
+    -> ('Mark', 20, 'mark@mail.com'),
+    -> ('John', 25, 'john@mail.com'),
+    -> ('Bob', 45, 'jane@mail.com'),
+    -> ('Alice', 35, 'alice@mail.com'),
+    -> ('Rúin', 20, 'rúin@mail.com'),
+    -> ('Aria', 21, 'aria@mail.com'),
+    -> ('Sara', 50, 'sara@mail.com'),
+    -> ('David', 39, david@mail.com),
+    -> ('Emily', 41, emily@mail.com),
+    -> ('Tom', 28, tom@mail.com);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@mail.com),
+('Emily', 41, emily@mail.com),
+('Tom', 28, tom@mail.com)' at line 9
+mysql> INSERT INTO person (name, age, email) VALUES
+    -> ('Mark', 20, 'mark@mail.com'),
+    -> ('John', 25, 'john@mail.com'),
+    -> ('Bob', 45, 'jane@mail.com'),
+    -> ('Alice', 35, 'alice@mail.com'),
+    -> ('Rúin', 20, 'rúin@mail.com'),
+    -> ('Aria', 21, 'aria@mail.com'),
+    -> ('Sara', 50, 'sara@mail.com'),
+    -> ('David', 39, 'david@mail.com'),
+    -> ('Emily', 41, 'emily@mail.com'),
+    -> ('Tom', 28, 'tom@mail.com');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO address (person_id, street, city, county) VALUES
+    -> (1, '123 Main St', 'Anytownn', 'Anycountry'),
+    -> (2, '456 Oak St', 'Somecity', 'Somecountry'),
+    -> (3, '789 Elm St', 'Othercity', 'othercountry'),
+    -> (4, 'Cregmore', 'Galway', 'Ireland'),
+    -> (5, 'Athenry', 'Galway', 'Ireland'),
+    -> (6, 'Lackagh', 'Galway', 'Ireland'),
+    -> (7, 'Sunny Drive', 'Sacramento', 'USA'),
+    -> (8, 'Lavender Town', 'Cinnebar', 'Kanto'),
+    -> (9, '23542 some cedar St', 'Clyde Ville', 'St. Louis')
+    -> (10, '123 Aughrey', 'Imperial Capital', 'Cyridel');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(10, '123 Aughrey', 'Imperial Capital', 'Cyridel')' at line 11
+mysql> INSERT INTO address (person_id, street, city, county) VALUES
+    -> (1, '123 Main St', 'Anytownn', 'Anycountry'),
+    -> (2, '456 Oak St', 'Somecity', 'Somecountry'),
+    -> (3, '789 Elm St', 'Othercity', 'othercountry'),
+    -> (4, 'Cregmore', 'Galway', 'Ireland'),
+    -> (5, 'Athenry', 'Galway', 'Ireland'),
+    -> (6, 'Lackagh', 'Galway', 'Ireland'),
+    -> (7, 'Sunny Drive', 'Sacramento', 'USA'),
+    -> (8, 'Lavender Town', 'Cinnebar', 'Kanto'),
+    -> (9, '23542 some cedar St', 'Clyde Ville', 'St. Louis'),
+    -> (10, '123 Aughrey', 'Imperial Capital', 'Cyridel');
+ERROR 1054 (42S22): Unknown column 'county' in 'field list'
+mysql> INSERT INTO address (person_id, street, city, country) VALUES
+    -> (1, '123 Main St', 'Anytownn', 'Anycountry'),
+    -> (2, '456 Oak St', 'Somecity', 'Somecountry'),
+    -> (3, '789 Elm St', 'Othercity', 'othercountry'),
+    -> (4, 'Cregmore', 'Galway', 'Ireland'),
+    -> (5, 'Athenry', 'Galway', 'Ireland'),
+    -> (6, 'Lackagh', 'Galway', 'Ireland'),
+    -> (7, 'Sunny Drive', 'Sacramento', 'USA'),
+    -> (8, 'Lavender Town', 'Cinnebar', 'Kanto'),
+    -> (9, '23542 some cedar St', 'Clyde Ville', 'St. Louis'),
+    -> (10, '123 Aughrey', 'Imperial Capital', 'Cyridel');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE person SET name = 'Mark', age = 20, email = 'G00403931@atu.ie' WHERE email = 'mark@mail.com';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * from person p;
++----+-------+-----+------------------+
+| id | name  | age | email            |
++----+-------+-----+------------------+
+|  1 | Mark  |  20 | G00403931@atu.ie |
+|  2 | John  |  25 | john@mail.com    |
+|  3 | Bob   |  45 | jane@mail.com    |
+|  4 | Alice |  35 | alice@mail.com   |
+|  5 | Rúin  |  20 | rúin@mail.com    |
+|  6 | Aria  |  21 | aria@mail.com    |
+|  7 | Sara  |  50 | sara@mail.com    |
+|  8 | David |  39 | david@mail.com   |
+|  9 | Emily |  41 | emily@mail.com   |
+| 10 | Tom   |  28 | tom@mail.com     |
++----+-------+-----+------------------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE address
+    -> SET street = 'Grange East', city = 'Galway', country = 'Ireland'
+    -> WHERE person_id = (SELECT id FROM person where emial = 'G00403931@atu.ie');
+ERROR 1054 (42S22): Unknown column 'emial' in 'where clause'
+mysql> SET street = 'Grange East', city = 'Galway', country = 'Ireland'
+    -> WHERE person_id = (SELECT id FROM person where email = 'G00403931@atu.ie');
+ERROR 1193 (HY000): Unknown system variable 'street'
+mysql> SET street = 'Grange East', city = 'Galway', country = 'Ireland'
+    -> WHERE person_id = (SELECT id FROM person where emial = 'G00403931@atu.ie');
+ERROR 1193 (HY000): Unknown system variable 'street'
+mysql> SET street = 'Grange East', city = 'Galway', country = 'Ireland'
+    -> WHERE person_id = (SELECT id FROM person WHERE email = 'G00403931@atu.ie');
+ERROR 1193 (HY000): Unknown system variable 'street'
+mysql> SET street = 'Grange East', city = 'Galway', country = 'Ireland'
